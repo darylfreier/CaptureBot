@@ -1,0 +1,210 @@
+# VentureCare Configuration with Popup Modal Handling
+# Updated to handle three popup modals before reaching the listing button
+
+WEB_DRIVER:
+  browser: "chrome"
+  headless: false
+  window_size: [1920, 1080]
+  implicit_wait: 15
+
+SCREENSHOTS:
+  format: "png"
+  quality: 95
+  full_page: true
+  delay_after_action: 3
+
+PRESENTATION:
+  title: "VentureCare Complete Listing Flow"
+  author: "CaptureBot"
+  slide_width: 9144000
+  slide_height: 6858000
+
+USER_FLOW:
+  login:
+    url: "https://demo.venturecare.com"
+    username_field: "input[name='email']"
+    password_field: "input[name='password']"
+    login_button: "button[type='submit']"
+    username: "seller@demo.com"
+    password: "password123"
+  
+  steps:
+    - name: "Navigate to Login"
+      description: "Go to VentureCare demo login page"
+      action: "navigate"
+      url: "https://demo.venturecare.com/login"
+    
+    - name: "Enter Email"
+      description: "Enter seller email address"
+      action: "fill_form"
+      fields:
+        "input[name='email'], input[type='email'], #email": "seller@demo.com"
+    
+    - name: "Enter Password"
+      description: "Enter password"
+      action: "fill_form"
+      fields:
+        "input[name='password'], input[type='password'], #password": "password123"
+    
+    - name: "Click Login"
+      description: "Submit login form"
+      action: "click"
+      selector: "button[type='submit'], input[type='submit'], .btn-login, .login-button"
+    
+    - name: "Wait for Page Load"
+      description: "Wait for page to load after login"
+      action: "wait_for_element"
+      selector: "body, html, .container, .main, .content"
+      timeout: 10
+    
+    - name: "Dismiss Chrome Password Warning"
+      description: "Dismiss Chrome's compromised password warning popup"
+      action: "click"
+      selector: "button[data-action='dismiss'], .password-warning-dismiss, .chrome-password-warning button, .password-compromised-dismiss, .password-alert button, .chrome-password-popup button"
+    
+    - name: "Wait After Chrome Warning"
+      description: "Wait for Chrome password warning to close"
+      action: "wait_for_element"
+      selector: "body"
+      timeout: 3
+    
+    - name: "Handle First Popup Modal"
+      description: "Navigate first VentureCare popup modal"
+      action: "click"
+      selector: ".modal-close, .close-modal, .popup-close, .btn-close, [data-dismiss='modal'], .modal .btn-primary, .modal .btn-secondary, .modal button"
+    
+    - name: "Wait After First Popup"
+      description: "Wait for first popup to close"
+      action: "wait_for_element"
+      selector: "body"
+      timeout: 5
+    
+    - name: "Handle Second Popup Modal"
+      description: "Navigate second popup modal - try to close or continue"
+      action: "click"
+      selector: ".modal-close, .close-modal, .popup-close, .btn-close, [data-dismiss='modal'], .modal .btn-primary, .modal .btn-secondary, .modal button"
+    
+    - name: "Wait After Second Popup"
+      description: "Wait for second popup to close"
+      action: "wait_for_element"
+      selector: "body"
+      timeout: 5
+    
+    - name: "Handle Third Popup Modal"
+      description: "Navigate third popup modal - try to close or continue"
+      action: "click"
+      selector: ".modal-close, .close-modal, .popup-close, .btn-close, [data-dismiss='modal'], .modal .btn-primary, .modal .btn-secondary, .modal button"
+    
+    - name: "Wait After Third Popup"
+      description: "Wait for third popup to close"
+      action: "wait_for_element"
+      selector: "body"
+      timeout: 5
+    
+    - name: "Wait for Main Interface"
+      description: "Wait for main interface to be available after all popups"
+      action: "wait_for_element"
+      selector: ".dashboard, .main-content, .user-menu, .profile-menu, .main-interface, .app-content"
+      timeout: 15
+    
+    - name: "Start New Listing"
+      description: "Click to create a new listing"
+      action: "click"
+      selector: ".new-listing, a[href*='listing'], [data-action='new-listing'], .create-listing, .add-listing, .btn-new-listing"
+    
+    - name: "Select Practice Type"
+      description: "Choose Dental Practice as practice type"
+      action: "click"
+      selector: ".dental-practice, [data-type='dental'], input[value='dental'], .practice-type-dental"
+    
+    - name: "Choose Specialty"
+      description: "Select General Dentistry specialty"
+      action: "click"
+      selector: ".general-dentistry, [data-specialty='general'], input[value='general'], .specialty-general"
+    
+    - name: "Continue to Details"
+      description: "Proceed to practice details section"
+      action: "click"
+      selector: ".btn-continue, .continue-button, input[value='Continue'], .btn-next"
+    
+    - name: "Set Clinical Staff Count"
+      description: "Set clinical staff to 4"
+      action: "fill_form"
+      fields:
+        "input[name='clinical_staff'], input[name='clinical-staff'], .clinical-staff, #clinical-staff": "4"
+    
+    - name: "Set Admin Staff Count"
+      description: "Set admin staff to 2"
+      action: "fill_form"
+      fields:
+        "input[name='admin_staff'], input[name='admin-staff'], .admin-staff, #admin-staff": "2"
+    
+    - name: "Set Operatories"
+      description: "Set number of operatories to 4"
+      action: "fill_form"
+      fields:
+        "input[name='operatories'], input[name='operatory_count'], .operatories, #operatories": "4"
+    
+    - name: "Set Square Footage"
+      description: "Set square footage to 2500"
+      action: "fill_form"
+      fields:
+        "input[name='square_footage'], input[name='sqft'], .square-footage, #sqft": "2500"
+    
+    - name: "Upload P&L Document"
+      description: "Attach P&L document"
+      action: "click"
+      selector: ".attach-pl, input[type='file'][name*='pl'], input[type='file'][name*='profit'], .upload-pl"
+    
+    - name: "Select Practice Management System"
+      description: "Choose Dentrix as PMS"
+      action: "click"
+      selector: ".dentrix, input[value='dentrix'], [data-pms='dentrix'], .pms-dentrix"
+    
+    - name: "Select Digital X-Ray"
+      description: "Choose digital x-ray equipment"
+      action: "click"
+      selector: ".digital-xray, input[value='digital-xray'], [data-equipment='digital-xray'], .equipment-xray"
+    
+    - name: "Select Sterilization Equipment"
+      description: "Choose sterilization unit"
+      action: "click"
+      selector: ".sterilization, input[value='sterilization'], [data-equipment='sterilization'], .equipment-sterilization"
+    
+    - name: "Set Operating Schedule"
+      description: "Set Monday-Friday 8-5 schedule"
+      action: "fill_form"
+      fields:
+        "input[name='schedule'], input[name='hours'], .schedule-input, #schedule": "Monday-Friday 8:00 AM - 5:00 PM"
+    
+    - name: "Set Days Open"
+      description: "Set 4 days open per week"
+      action: "fill_form"
+      fields:
+        "input[name='days_open'], input[name='days-open'], .days-open, #days-open": "4"
+    
+    - name: "Set Saturday Status"
+      description: "Set Saturdays as closed"
+      action: "click"
+      selector: ".saturday-closed, input[value='closed'], [data-day='saturday'][data-status='closed'], .day-saturday-closed"
+    
+    - name: "Set Emergency Coverage"
+      description: "Set emergency coverage by practice owner"
+      action: "click"
+      selector: ".emergency-owner, input[value='practice-owner'], [data-emergency='practice-owner'], .emergency-practice-owner"
+    
+    - name: "Skip Analytics Section"
+      description: "Skip web analytics configuration"
+      action: "click"
+      selector: ".skip-analytics, .btn-skip, [data-skip='analytics'], .skip-btn"
+    
+    - name: "Skip Photos Section"
+      description: "Skip photos upload"
+      action: "click"
+      selector: ".skip-photos, .btn-skip, [data-skip='photos'], .skip-btn"
+    
+    - name: "Review Final Listing"
+      description: "Review listing before save/publish"
+      action: "wait_for_element"
+      selector: ".save-listing, .publish-listing, .btn-save, .btn-publish"
+      timeout: 15

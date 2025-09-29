@@ -1,0 +1,62 @@
+PRESENTATION:
+  author: CaptureBot
+  slide_height: 6858000
+  slide_width: 9144000
+  title: Demo Website User Flow
+SCREENSHOTS:
+  delay_after_action: 2
+  format: png
+  full_page: true
+  quality: 95
+USER_FLOW:
+  login:
+    login_button: input[type="submit"]
+    password: demo_password
+    password_field: input[name="custtel"]
+    url: https://httpbin.org/forms/post
+    username: demo_user
+    username_field: input[name="custname"]
+  steps:
+  - action: navigate
+    description: Navigate to the demo form page
+    name: Demo Form Page
+    url: https://httpbin.org/forms/post
+  - action: fill_form
+    description: Enter customer name in the form
+    fields:
+      input[name="custname"]: John Doe
+    name: Fill Customer Name
+  - action: fill_form
+    description: Enter customer email address
+    fields:
+      input[name="custemail"]: john.doe@example.com
+    name: Fill Customer Email
+  - action: click
+    description: Select pizza size from dropdown
+    name: Select Size
+    selector: select[name="size"]
+  - action: click
+    description: Select large size option
+    name: Choose Large Size
+    selector: option[value="large"]
+  - action: click
+    description: Select additional toppings
+    name: Add Toppings
+    selector: input[name="topping"][value="bacon"]
+  - action: fill_form
+    description: Enter delivery instructions
+    fields:
+      textarea[name="comments"]: Please ring the doorbell twice. Leave at front door
+        if no answer.
+    name: Add Delivery Instructions
+  - action: scroll
+    description: Final form review before submission
+    direction: top
+    name: Review Form
+WEB_DRIVER:
+  browser: chrome
+  headless: false
+  implicit_wait: 10
+  window_size:
+  - 1920
+  - 1080

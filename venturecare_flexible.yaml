@@ -1,0 +1,87 @@
+# VentureCare Configuration - Flexible Popup Handling
+# This version tries to handle popups but continues if they don't exist
+
+WEB_DRIVER:
+  browser: "chrome"
+  headless: false
+  window_size: [1920, 1080]
+  implicit_wait: 15
+
+SCREENSHOTS:
+  format: "png"
+  quality: 95
+  full_page: true
+  delay_after_action: 3
+
+PRESENTATION:
+  title: "VentureCare Complete Flow - Flexible"
+  author: "CaptureBot"
+  slide_width: 9144000
+  slide_height: 6858000
+
+USER_FLOW:
+  login:
+    url: "https://demo.venturecare.com"
+    username_field: "input[name='email']"
+    password_field: "input[name='password']"
+    login_button: "button[type='submit']"
+    username: "seller@demo.com"
+    password: "password123"
+  
+  steps:
+    - name: "Navigate to Login"
+      description: "Go to VentureCare demo login page"
+      action: "navigate"
+      url: "https://demo.venturecare.com/login"
+    
+    - name: "Enter Email"
+      description: "Enter seller email address"
+      action: "fill_form"
+      fields:
+        "input[name='email'], input[type='email'], #email": "seller@demo.com"
+    
+    - name: "Enter Password"
+      description: "Enter password"
+      action: "fill_form"
+      fields:
+        "input[name='password'], input[type='password'], #password": "password123"
+    
+    - name: "Click Login"
+      description: "Submit login form"
+      action: "click"
+      selector: "button[type='submit'], input[type='submit'], .btn-login, .login-button"
+    
+    - name: "Wait for Page Load"
+      description: "Wait for page to load after login"
+      action: "wait_for_element"
+      selector: "body, html, .container, .main, .content"
+      timeout: 10
+    
+    - name: "Look for Any Popups or Modals"
+      description: "Look for any popup or modal elements on the page"
+      action: "wait_for_element"
+      selector: ".modal, .popup, .overlay, .dialog, .alert, .notification, .warning, .chrome-password, .password-warning, button, .btn"
+      timeout: 5
+    
+    - name: "Try to Find Listing Button"
+      description: "Look for listing-related buttons or links"
+      action: "wait_for_element"
+      selector: ".new-listing, a[href*='listing'], [data-action='new-listing'], .create-listing, .add-listing, .btn-new-listing, button, .btn, a"
+      timeout: 10
+    
+    - name: "Scroll to Find More Elements"
+      description: "Scroll down to see more of the page"
+      action: "scroll"
+      direction: "down"
+      pixels: 500
+    
+    - name: "Look for Navigation Menu"
+      description: "Look for navigation or menu elements"
+      action: "wait_for_element"
+      selector: "nav, .nav, .navigation, .menu, .navbar, .header, .sidebar, .main-menu"
+      timeout: 10
+    
+    - name: "Try Clicking Any Button"
+      description: "Try clicking the first available button"
+      action: "click"
+      selector: "button, .btn, a, input[type='button'], input[type='submit']"

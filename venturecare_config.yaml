@@ -1,0 +1,155 @@
+# CaptureBot Configuration for VentureCare Demo
+# Site: demo.venturecare.com
+# User Flow: New Listing Creation Process
+
+# Web automation settings
+WEB_DRIVER:
+  browser: "chrome"
+  headless: false
+  window_size: [1920, 1080]
+  implicit_wait: 10
+
+# Screenshot settings
+SCREENSHOTS:
+  format: "png"
+  quality: 95
+  full_page: true
+  delay_after_action: 2
+
+# Presentation settings
+PRESENTATION:
+  title: "VentureCare Listing Creation Flow"
+  author: "CaptureBot"
+  slide_width: 9144000
+  slide_height: 6858000
+
+# User flow steps for VentureCare demo
+USER_FLOW:
+  login:
+    url: "https://demo.venturecare.com"
+    username_field: "input[name='email'], input[name='username'], input[type='email']"
+    password_field: "input[name='password'], input[type='password']"
+    login_button: "button[type='submit'], input[type='submit'], .login-button, .btn-login"
+    username: "seller@demo.com"
+    password: "password123"
+  
+  steps:
+    - name: "Login Page"
+      description: "Navigate to VentureCare demo login page"
+      action: "navigate"
+      url: "https://demo.venturecare.com/login"
+    
+    - name: "Enter Login Credentials"
+      description: "Fill in email and password"
+      action: "fill_form"
+      fields:
+        "input[name='email'], input[name='username'], input[type='email']": "seller@demo.com"
+        "input[name='password'], input[type='password']": "password123"
+    
+    - name: "Submit Login"
+      description: "Click login button to access dashboard"
+      action: "click"
+      selector: "button[type='submit'], input[type='submit'], .login-button, .btn-login"
+    
+    - name: "Dashboard Loaded"
+      description: "Wait for dashboard to load after login"
+      action: "wait_for_element"
+      selector: ".dashboard, .main-content, .user-dashboard"
+      timeout: 15
+    
+    - name: "Click New Listing"
+      description: "Click the 'New Listing' button to start creating a listing"
+      action: "click"
+      selector: "button:contains('New Listing'), .new-listing-btn, a:contains('New Listing'), [data-testid='new-listing']"
+    
+    - name: "Select Dental Practice"
+      description: "Choose 'Dental Practice' as the practice type"
+      action: "click"
+      selector: "button:contains('Dental Practice'), .dental-practice, [data-type='dental-practice'], input[value='dental-practice']"
+    
+    - name: "Choose General Dentistry"
+      description: "Select 'General Dentistry' as the specialty"
+      action: "click"
+      selector: "button:contains('General Dentistry'), .general-dentistry, [data-specialty='general-dentistry'], input[value='general-dentistry']"
+    
+    - name: "Click Continue"
+      description: "Proceed to the next step in the listing creation"
+      action: "click"
+      selector: "button:contains('Continue'), .continue-btn, .btn-continue, input[value='Continue']"
+    
+    - name: "Set Clinical Staff"
+      description: "Set number of clinical staff to 4"
+      action: "fill_form"
+      fields:
+        "input[name='clinical_staff'], input[name='clinical-staff'], .clinical-staff-input": "4"
+    
+    - name: "Set Admin Staff"
+      description: "Set number of admin staff to 2"
+      action: "fill_form"
+      fields:
+        "input[name='admin_staff'], input[name='admin-staff'], .admin-staff-input": "2"
+    
+    - name: "Set Operatories and Square Footage"
+      description: "Set 4 operatories and 2500 sq ft"
+      action: "fill_form"
+      fields:
+        "input[name='operatories'], input[name='operatory-count'], .operatories-input": "4"
+        "input[name='square_footage'], input[name='sqft'], .square-footage-input": "2500"
+    
+    - name: "Attach P&L"
+      description: "Upload or attach P&L document"
+      action: "click"
+      selector: "button:contains('Attach P&L'), .attach-pl-btn, input[type='file'][name*='pl'], input[type='file'][name*='profit']"
+    
+    - name: "Select Dentrix"
+      description: "Choose Dentrix as the practice management system"
+      action: "click"
+      selector: "button:contains('Dentrix'), input[value='dentrix'], .dentrix-option, [data-pms='dentrix']"
+    
+    - name: "Select Digital X-Ray"
+      description: "Choose digital x-ray equipment"
+      action: "click"
+      selector: "button:contains('Digital X-Ray'), input[value='digital-xray'], .digital-xray-option, [data-equipment='digital-xray']"
+    
+    - name: "Select Sterilization Unit"
+      description: "Choose sterilization unit equipment"
+      action: "click"
+      selector: "button:contains('Sterilization Unit'), input[value='sterilization'], .sterilization-option, [data-equipment='sterilization']"
+    
+    - name: "Set Operating Hours"
+      description: "Set operating hours to Monday-Friday 8-5"
+      action: "fill_form"
+      fields:
+        "input[name='hours'], input[name='operating_hours'], .hours-input": "Monday-Friday 8:00 AM - 5:00 PM"
+    
+    - name: "Set Days Open"
+      description: "Set number of days open to 4"
+      action: "fill_form"
+      fields:
+        "input[name='days_open'], input[name='days-open'], .days-open-input": "4"
+    
+    - name: "Set Saturday Hours"
+      description: "Set Saturdays as closed"
+      action: "click"
+      selector: "button:contains('Closed'), input[value='closed'], .saturday-closed, [data-day='saturday'][data-status='closed']"
+    
+    - name: "Set Emergency Coverage"
+      description: "Set emergency coverage by practice owner"
+      action: "click"
+      selector: "button:contains('Practice Owner'), input[value='practice-owner'], .emergency-practice-owner, [data-emergency='practice-owner']"
+    
+    - name: "Skip Web Analytics"
+      description: "Skip the web analytics section"
+      action: "click"
+      selector: "button:contains('Skip'), .skip-analytics, .btn-skip, [data-skip='analytics']"
+    
+    - name: "Skip Photos"
+      description: "Skip the photos upload section"
+      action: "click"
+      selector: "button:contains('Skip'), .skip-photos, .btn-skip, [data-skip='photos']"
+    
+    - name: "Final Review"
+      description: "Review the listing before saving or publishing"
+      action: "wait_for_element"
+      selector: "button:contains('Save'), button:contains('Publish'), .save-btn, .publish-btn"
+      timeout: 10

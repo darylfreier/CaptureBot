@@ -1,0 +1,182 @@
+# CaptureBot Configuration for VentureCare Demo - Enhanced Version
+# Site: demo.venturecare.com
+# User Flow: Complete Dental Practice Listing Creation
+
+WEB_DRIVER:
+  browser: "chrome"
+  headless: false
+  window_size: [1920, 1080]
+  implicit_wait: 15
+
+SCREENSHOTS:
+  format: "png"
+  quality: 95
+  full_page: true
+  delay_after_action: 3
+
+PRESENTATION:
+  title: "VentureCare Dental Practice Listing Creation"
+  author: "CaptureBot"
+  slide_width: 9144000
+  slide_height: 6858000
+
+USER_FLOW:
+  login:
+    url: "https://demo.venturecare.com"
+    username_field: "input[name='email']"
+    password_field: "input[name='password']"
+    login_button: "button[type='submit']"
+    username: "seller@demo.com"
+    password: "password123"
+  
+  steps:
+    - name: "Navigate to Login"
+      description: "Go to VentureCare demo login page"
+      action: "navigate"
+      url: "https://demo.venturecare.com/login"
+    
+    - name: "Enter Email"
+      description: "Enter seller email address"
+      action: "fill_form"
+      fields:
+        "input[name='email'], input[type='email'], #email": "seller@demo.com"
+    
+    - name: "Enter Password"
+      description: "Enter password"
+      action: "fill_form"
+      fields:
+        "input[name='password'], input[type='password'], #password": "password123"
+    
+    - name: "Click Login"
+      description: "Submit login form"
+      action: "click"
+      selector: "button[type='submit'], input[type='submit'], .btn-login, .login-button"
+    
+    - name: "Wait for Page Load"
+      description: "Wait for page to load after login"
+      action: "wait_for_element"
+      selector: "body, html, .container, .main, .content"
+      timeout: 10
+    
+    - name: "Handle First Popup Modal"
+      description: "Close or navigate first popup modal"
+      action: "click"
+      selector: ".modal-close, .close-modal, .popup-close, button:contains('Close'), button:contains('Skip'), .btn-close, [data-dismiss='modal']"
+    
+    - name: "Handle Second Popup Modal"
+      description: "Close or navigate second popup modal"
+      action: "click"
+      selector: ".modal-close, .close-modal, .popup-close, button:contains('Close'), button:contains('Skip'), .btn-close, [data-dismiss='modal']"
+    
+    - name: "Handle Third Popup Modal"
+      description: "Close or navigate third popup modal"
+      action: "click"
+      selector: ".modal-close, .close-modal, .popup-close, button:contains('Close'), button:contains('Skip'), .btn-close, [data-dismiss='modal']"
+    
+    - name: "Wait for Main Interface"
+      description: "Wait for main interface to be available after popups"
+      action: "wait_for_element"
+      selector: ".dashboard, .main-content, .user-menu, .profile-menu, .main-interface"
+      timeout: 15
+    
+    - name: "Start New Listing"
+      description: "Click to create a new listing"
+      action: "click"
+      selector: "button:contains('New Listing'), .new-listing, a:contains('New Listing'), [href*='listing'], [data-action='new-listing']"
+    
+    - name: "Select Practice Type"
+      description: "Choose Dental Practice as practice type"
+      action: "click"
+      selector: "button:contains('Dental Practice'), .dental-practice, [data-type='dental'], input[value='dental']"
+    
+    - name: "Choose Specialty"
+      description: "Select General Dentistry specialty"
+      action: "click"
+      selector: "button:contains('General Dentistry'), .general-dentistry, [data-specialty='general'], input[value='general']"
+    
+    - name: "Continue to Details"
+      description: "Proceed to practice details section"
+      action: "click"
+      selector: "button:contains('Continue'), .btn-continue, .continue-button, input[value='Continue']"
+    
+    - name: "Set Clinical Staff Count"
+      description: "Set clinical staff to 4"
+      action: "fill_form"
+      fields:
+        "input[name='clinical_staff'], input[name='clinical-staff'], .clinical-staff, #clinical-staff": "4"
+    
+    - name: "Set Admin Staff Count"
+      description: "Set admin staff to 2"
+      action: "fill_form"
+      fields:
+        "input[name='admin_staff'], input[name='admin-staff'], .admin-staff, #admin-staff": "2"
+    
+    - name: "Set Operatories"
+      description: "Set number of operatories to 4"
+      action: "fill_form"
+      fields:
+        "input[name='operatories'], input[name='operatory_count'], .operatories, #operatories": "4"
+    
+    - name: "Set Square Footage"
+      description: "Set square footage to 2500"
+      action: "fill_form"
+      fields:
+        "input[name='square_footage'], input[name='sqft'], .square-footage, #sqft": "2500"
+    
+    - name: "Upload P&L Document"
+      description: "Attach P&L document"
+      action: "click"
+      selector: "button:contains('Attach P&L'), .attach-pl, input[type='file'][name*='pl'], input[type='file'][name*='profit']"
+    
+    - name: "Select Practice Management System"
+      description: "Choose Dentrix as PMS"
+      action: "click"
+      selector: "button:contains('Dentrix'), .dentrix, input[value='dentrix'], [data-pms='dentrix']"
+    
+    - name: "Select Digital X-Ray"
+      description: "Choose digital x-ray equipment"
+      action: "click"
+      selector: "button:contains('Digital X-Ray'), .digital-xray, input[value='digital-xray'], [data-equipment='digital-xray']"
+    
+    - name: "Select Sterilization Equipment"
+      description: "Choose sterilization unit"
+      action: "click"
+      selector: "button:contains('Sterilization Unit'), .sterilization, input[value='sterilization'], [data-equipment='sterilization']"
+    
+    - name: "Set Operating Schedule"
+      description: "Set Monday-Friday 8-5 schedule"
+      action: "fill_form"
+      fields:
+        "input[name='schedule'], input[name='hours'], .schedule-input, #schedule": "Monday-Friday 8:00 AM - 5:00 PM"
+    
+    - name: "Set Days Open"
+      description: "Set 4 days open per week"
+      action: "fill_form"
+      fields:
+        "input[name='days_open'], input[name='days-open'], .days-open, #days-open": "4"
+    
+    - name: "Set Saturday Status"
+      description: "Set Saturdays as closed"
+      action: "click"
+      selector: "button:contains('Closed'), .saturday-closed, input[value='closed'], [data-day='saturday'][data-status='closed']"
+    
+    - name: "Set Emergency Coverage"
+      description: "Set emergency coverage by practice owner"
+      action: "click"
+      selector: "button:contains('Practice Owner'), .emergency-owner, input[value='practice-owner'], [data-emergency='practice-owner']"
+    
+    - name: "Skip Analytics Section"
+      description: "Skip web analytics configuration"
+      action: "click"
+      selector: "button:contains('Skip'), .skip-analytics, .btn-skip, [data-skip='analytics']"
+    
+    - name: "Skip Photos Section"
+      description: "Skip photos upload"
+      action: "click"
+      selector: "button:contains('Skip'), .skip-photos, .btn-skip, [data-skip='photos']"
+    
+    - name: "Review Final Listing"
+      description: "Review listing before save/publish"
+      action: "wait_for_element"
+      selector: "button:contains('Save'), button:contains('Publish'), .save-listing, .publish-listing"
+      timeout: 15

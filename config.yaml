@@ -1,0 +1,67 @@
+# CaptureBot Configuration
+
+# Web automation settings
+WEB_DRIVER:
+  browser: "chrome"  # chrome, firefox, edge
+  headless: false    # Set to true for headless mode
+  window_size: [1920, 1080]
+  implicit_wait: 10  # seconds
+
+# Screenshot settings
+SCREENSHOTS:
+  format: "png"
+  quality: 95
+  full_page: true
+  delay_after_action: 2  # seconds to wait after each action
+
+# Presentation settings
+PRESENTATION:
+  title: "User Flow Documentation"
+  author: "CaptureBot"
+  slide_width: 9144000  # PowerPoint units (10 inches)
+  slide_height: 6858000  # PowerPoint units (7.5 inches)
+
+# User flow steps (customize this for your specific flow)
+USER_FLOW:
+  login:
+    url: "https://example.com/login"
+    username_field: "input[name='username']"
+    password_field: "input[name='password']"
+    login_button: "button[type='submit']"
+    username: "your_username"
+    password: "your_password"
+  
+  steps:
+    - name: "Login Page"
+      description: "Initial login screen"
+      action: "navigate"
+      url: "https://example.com/login"
+    
+    - name: "Enter Credentials"
+      description: "Fill in username and password"
+      action: "fill_form"
+      fields:
+        username: "your_username"
+        password: "your_password"
+    
+    - name: "Submit Login"
+      description: "Click login button"
+      action: "click"
+      selector: "button[type='submit']"
+    
+    - name: "Dashboard"
+      description: "Main dashboard after login"
+      action: "wait_for_element"
+      selector: ".dashboard"
+      timeout: 10
+    
+    - name: "Navigate to Settings"
+      description: "Click on settings menu"
+      action: "click"
+      selector: "a[href='/settings']"
+    
+    - name: "Settings Page"
+      description: "Settings page loaded"
+      action: "wait_for_element"
+      selector: ".settings-page"
+      timeout: 5
